@@ -195,10 +195,29 @@ let questions = [
   },
 ];
 
+//start
+
+
+function BtnSettings(btn, appendBtn, questions, counter, optNum) {
+  btn.innerHTML = questions[counter].options[optNum];
+  appendBtn.append(btn);
+  btn.classList.add("bigBtn");
+}
+
+function Marks(Btn, marks, questions, currentCounter) {
+  let answer = Btn.innerHTML;
+  if (answer == questions[currentCounter].answer) {
+    Btn.disabled = true;
+    return marks + 1;
+  } else {
+    Btn.disabled = true;
+    return marks;
+  }
+}
+
 function Quiz(questions) {
   let questionsElement = document.getElementById("questions");
   let counter = 0;
-  let answers = "";
   let marks = 0;
   let currentCounter;
   let options = document.getElementsByClassName("options")[0];
@@ -228,67 +247,36 @@ function Quiz(questions) {
 
     //opt 1
     let opt1 = document.createElement("button");
-    opt1.innerHTML = questions[counter].options[0];
-    options.append(opt1);
-    opt1.classList.add("bigBtn");
+    BtnSettings(opt1, options, questions, counter, 0);
 
     //opt 2
     let opt2 = document.createElement("button");
-    opt2.innerHTML = questions[counter].options[1];
-    options.append(opt2);
-    opt2.classList.add("bigBtn");
+    BtnSettings(opt2, options, questions, counter, 1);
 
     //opt 3
     let opt3 = document.createElement("button");
-    opt3.innerHTML = questions[counter].options[2];
-    options.append(opt3);
-    opt3.classList.add("bigBtn");
+    BtnSettings(opt3, options, questions, counter, 2);
 
     //opt4
     let opt4 = document.createElement("button");
-    opt4.innerHTML = questions[counter].options[3];
-    options.append(opt4);
-    opt4.classList.add("bigBtn");
+    BtnSettings(opt4, options, questions, counter, 3);
 
     //event listeners
 
     opt1.addEventListener("click", () => {
-      answers = opt1.innerHTML;
-      if (answers == questions[currentCounter].answer) {
-        marks++;
-        console.log(marks);
-      }
-      opt1.disabled = true;
-
+      marks = Marks(opt1, marks, questions, currentCounter);
       next.disabled = false;
     });
     opt2.addEventListener("click", () => {
-      answers = opt2.innerHTML;
-      if (answers == questions[currentCounter].answer) {
-        marks++;
-        console.log(marks);
-      }
-      opt2.disabled = true;
-
+      marks = Marks(opt2, marks, questions, currentCounter);
       next.disabled = false;
     });
     opt3.addEventListener("click", () => {
-      answers = opt3.innerHTML;
-      if (answers == questions[currentCounter].answer) {
-        marks++;
-        console.log(marks);
-      }
-      opt3.disabled = true;
-
+      marks = Marks(opt3, marks, questions, currentCounter);
       next.disabled = false;
     });
     opt4.addEventListener("click", () => {
-      answers = opt4.innerHTML;
-      if (answers == questions[currentCounter].answer) {
-        marks++;
-        console.log(marks);
-      }
-      opt4.disabled = true;
+      marks = Marks(opt4, marks, questions, currentCounter);
 
       next.disabled = false;
     });
